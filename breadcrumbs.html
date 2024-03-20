@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Breadcrumbs</title>
+
+		<style>
+			.breadcrumb {
+				padding: 0.8em;
+				background: rgb(248, 246, 248);
+			}
+
+			.breadcrumb__list {
+				margin: 0;
+				padding: 0;
+			}
+
+			.breadcrumb__item {
+				display: inline;
+			}
+
+			.breadcrumb__item + .breadcrumb__item::before {
+				content: '';
+				display: inline-block;
+				margin: 0 0.25em;
+				transform: rotate(15deg);
+				border-right: 0.1em solid currentcolor;
+				height: 0.8em;
+			}
+
+			.breadcrumb [aria-current='page'] {
+				color: #000;
+				font-weight: 700;
+				text-decoration: none;
+			}
+		</style>
+	</head>
+	<body>
+		<nav
+			aria-label="Breadcrumb"
+			class="breadcrumb">
+			<ol class="breadcrumb__list">
+				<li class="breadcrumb__item">
+					<a href="../../../..">First</a>
+				</li>
+				<li class="breadcrumb__item">
+					<a href="../../../">Second</a>
+				</li>
+				<li class="breadcrumb__item">
+					<a href="../../">Third</a>
+				</li>
+				<li class="breadcrumb__item">
+					<a
+						href=""
+						aria-current="page">
+						Current
+					</a>
+				</li>
+			</ol>
+		</nav>
+	</body>
+</html>

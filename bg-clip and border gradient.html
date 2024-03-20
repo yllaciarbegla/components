@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="stylesheet"
+			href="reset.css" />
+		<title>Background clip</title>
+
+		<style>
+			:root {
+				--body-bg-color: #232323;
+			}
+			* {
+				margin: 0;
+				font-size: 2rem;
+			}
+			body {
+				display: flex;
+				flex-direction: column;
+				gap: 2rem;
+				align-items: center;
+				color: aliceblue;
+				background-color: var(--body-bg-color);
+			}
+			span,
+			p,
+			button {
+				padding: 0.5rem 1rem;
+			}
+			.first {
+				background-color: indigo;
+				background-clip: text;
+				-webkit-text-fill-color: transparent;
+			}
+			.second {
+				background-color: tomato;
+				background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-image: linear-gradient(90deg, rgba(131, 58, 180, 1) 13%, rgba(45, 98, 186, 1) 29%, rgba(247, 67, 67, 1) 47%, rgba(90, 255, 77, 1) 64%, rgba(252, 244, 69, 1) 84%);
+			}
+
+			/* First button (can't combine border-image with border-radius) */
+			.btn_gradient-1 {
+				border-width: 4px;
+				border-style: solid;
+				border-image: linear-gradient(to right, coral, slateblue) 1;
+				transition: all 0.4s;
+
+				animation: borderGradient 1s linear infinite forwards;
+			}
+			.btn_gradient-1:hover {
+				animation: none;
+				background: linear-gradient(to right, coral, slateblue);
+			}
+
+			@keyframes borderGradient {
+				50% {
+					border-image: linear-gradient(to right, slateblue, coral) 1;
+				}
+			}
+
+			/* Second button (can't add animation) */
+			.btn_gradient-2 {
+				background: linear-gradient(var(--body-bg-color), var(--body-bg-color)) padding-box, linear-gradient(45deg, slateblue, coral) border-box;
+				border: 5px solid transparent;
+				border-radius: 50px;
+			}
+
+			/* Third button */
+			.gradient-border {
+				transition: all 0.4s;
+				--borderWidth: 8px;
+				background: var(--body-bg-color);
+				position: relative;
+				border-radius: var(--borderWidth);
+			}
+			.gradient-border:after {
+				content: '';
+				position: absolute;
+				top: calc(-1 * var(--borderWidth));
+				left: calc(-1 * var(--borderWidth));
+				height: calc(100% + var(--borderWidth) * 2);
+				width: calc(100% + var(--borderWidth) * 2);
+				background: linear-gradient(60deg, slateblue, coral);
+				border-radius: calc(2 * var(--borderWidth));
+				z-index: -1;
+				animation: animatedgradient 3s infinite;
+				background-size: 300% 300%;
+			}
+			.gradient-border:hover,
+			.gradient-border:focus-visible {
+				background: transparent;
+			}
+			@keyframes animatedgradient {
+				0% {
+					background-position: 0% 50%;
+				}
+				50% {
+					background-position: 100% 50%;
+				}
+				100% {
+					background-position: 0% 50%;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<p class="first">First</p>
+		<p class="second">Second</p>
+
+		<span class="btn_gradient-1">first</span>
+		<span class="btn_gradient-2">second</span>
+		<button
+			onclick="console.log('test')"
+			class="gradient-border">
+			third
+		</button>
+	</body>
+</html>

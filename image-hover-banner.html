@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Hover image banner</title>
+		<style>
+			.image {
+				position: relative;
+				width: 500px;
+				height: 300px;
+				margin: 0 auto;
+				overflow: hidden;
+			}
+
+			img {
+				display: block;
+				max-width: 100%;
+				object-fit: cover;
+			}
+
+			.image-switch {
+				position: absolute;
+				left: 0;
+				top: 0;
+				z-index: 20;
+				width: 100%;
+				height: 100%;
+				display: flex;
+				opacity: 0;
+			}
+
+			.image-switch-item {
+				width: 50%;
+				cursor: pointer;
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-end;
+				padding-bottom: 5px;
+			}
+
+			.image-switch-item::after {
+				content: '';
+				position: relative;
+				z-index: 2;
+				width: 90%;
+				height: 3px;
+				margin: 0 auto;
+				border-radius: 10px;
+				background-color: rgba(255, 255, 255, 0.4);
+			}
+
+			.switched-image {
+				position: absolute;
+				left: 0;
+				top: 0;
+				opacity: 0;
+				width: 100%;
+				height: 100%;
+				pointer-events: none;
+			}
+
+			.image:hover .image-switch {
+				opacity: 1;
+			}
+
+			.image:hover > img {
+				opacity: 0;
+			}
+
+			.image-switch-item:hover .switched-image {
+				opacity: 1;
+			}
+
+			.image-switch-item:hover::after {
+				background-color: #fff;
+			}
+		</style>
+	</head>
+
+	<body style="background-color: #232323">
+		<div class="image">
+			<img src="img/1.jpg" />
+
+			<div class="image-switch">
+				<div class="image-switch-item">
+					<div class="switched-image">
+						<img src="img/1.jpg" />
+					</div>
+				</div>
+				<div class="image-switch-item">
+					<div class="switched-image">
+						<img src="img/2.jpg" />
+					</div>
+				</div>
+				<div class="image-switch-item">
+					<div class="switched-image">
+						<img src="img/3.jpg" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

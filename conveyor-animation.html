@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Conveyor animation</title>
+
+		<style>
+			.tags {
+				max-width: 40%;
+				overflow: hidden;
+				display: flex;
+				flex-direction: column;
+				gap: 1rem;
+				mask-image: linear-gradient(90deg, transparent, white 5%, white 95%, transparent);
+			}
+			.tags__row {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 1rem;
+			}
+			.tag {
+				padding: 1rem;
+				background-color: tomato;
+			}
+
+			/*  */
+
+			.tags[data-animated='true'] .tags__row {
+				width: max-content;
+				flex-wrap: nowrap;
+
+				animation: conveyor var(--animation-duration, 3s) var(--animation-direction, forwards) infinite linear;
+			}
+			.tags[data-animated='true'] .tags__row[data-direction='right'] {
+				--animation-direction: reverse;
+			}
+			.tags[data-animated='true'] .tags__row[data-direction='left'] {
+				--animation-direction: forwards;
+			}
+			.tags[data-animated='true'] .tags__row[data-duration='fast'] {
+				--animation-duration: 3s;
+			}
+			.tags[data-animated='true'] .tags__row[data-duration='slow'] {
+				--animation-duration: 3s;
+			}
+
+			@keyframes conveyor {
+				to {
+					transform: translateX(calc(-25% - 0.125rem)); /* Gap(1rem)*25%=0.125rem */
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="tags">
+			<div
+				class="tags__row"
+				data-direction="left"
+				data-duration="fast">
+				<div class="tag">performance</div>
+				<div class="tag">design</div>
+				<div class="tag">photography</div>
+			</div>
+			<div
+				class="tags__row"
+				data-direction="right">
+				<div class="tag">dance</div>
+				<div class="tag">architecture</div>
+				<div class="tag">handmade</div>
+			</div>
+			<div
+				class="tags__row"
+				data-direction="left"
+				data-duration="slow">
+				<div class="tag">poetry</div>
+				<div class="tag">AI&nbsp;art</div>
+				<div class="tag">music</div>
+				<div class="tag">fashion</div>
+			</div>
+		</div>
+
+		<script>
+			const tags = document.querySelectorAll('.tags');
+
+			if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) addAnimation();
+
+			function addAnimation() {
+				tags.forEach((tagsBlock) => {
+					tagsBlock.setAttribute('data-animated', true);
+
+					createCopy(tagsBlock);
+				});
+			}
+
+			function createCopy(target) {
+				const rows = target.querySelectorAll('.tags__row');
+				rows.forEach((row) => {
+					const rowContent = Array.from(row.children);
+
+					for (let i = 0; i < 3; i++) {
+						rowContent.forEach((elem) => {
+							copyPast(elem, row);
+						});
+					}
+				});
+			}
+
+			function copyPast(elem, target) {
+				const duplicatedElem = elem.cloneNode(true);
+				duplicatedElem.setAttribute('aria-hidden', true);
+				target.append(duplicatedElem);
+			}
+		</script>
+	</body>
+</html>

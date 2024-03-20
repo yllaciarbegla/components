@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Count animation</title>
+		<style>
+			body {
+				height: calc(100vh + 500px);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: space-between;
+			}
+
+			.container {
+				height: 300px;
+				display: flex;
+				align-items: center;
+				gap: 50px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container section">
+			<span data-digits-counter="2000">500</span>
+			<span data-digits-counter>90</span>
+			<span data-digits-counter="3000">-50</span>
+		</div>
+
+		<div class="container section">
+			<span data-digits-counter="4000">500</span>
+			<span data-digits-counter>90</span>
+			<span data-digits-counter="500">-50</span>
+		</div>
+
+		<script>
+			window.addEventListener('load', windowLoad);
+
+			function windowLoad() {
+				function digitsCountersInit(digitsCountersItems) {
+					let digitsCounters = digitsCountersItems
+						? digitsCountersItems
+						: document.querySelectorAll('[data-digits-counter]');
+
+					if (digitsCounters) {
+						digitsCounters.forEach((oneCounter) =>
+							digitsCountersAnimate(oneCounter)
+						);
+					}
+				}
+
+				function digitsCountersAnimate(oneCounter) {
+					let startTimestamp = null;
+					const duration = parseInt(oneCounter.dataset.digitsCounter)
+						? parseInt(oneCounter.dataset.digitsCounter)
+						: 1000;
+					const targetValue = parseInt(oneCounter.innerHTML);
+					const startPosition = 0;
+					const step = (timestamp) => {
+						if (!startTimestamp) startTimestamp = timestamp;
+						const progress = Math.min(
+							(timestamp - startTimestamp) / duration,
+							1
+						);
+						oneCounter.innerHTML = Math.floor(
+							progress * (startPosition + targetValue)
+						);
+						if (progress < 1) {
+							window.requestAnimationFrame(step);
+						}
+					};
+					window.requestAnimationFrame(step);
+				}
+
+				// start on scroll
+
+				let options = {
+					threshold: 0.3,
+				};
+				let observer = new IntersectionObserver((entries, observer) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							const targetElement = entry.target;
+							const digitsCountersItems = targetElement.querySelectorAll(
+								'[data-digits-counter]'
+							);
+							if (digitsCountersItems.length) {
+								digitsCountersInit(digitsCountersItems);
+							}
+
+							observer.unobserve(targetElement);
+						}
+					});
+				}, options);
+
+				let sections = document.querySelectorAll('.section');
+				if (sections.length) {
+					sections.forEach((section) => observer.observe(section));
+				}
+			}
+		</script>
+	</body>
+</html>

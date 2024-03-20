@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zxx">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Modal window</title>
+
+		<style>
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+				margin: 0;
+				min-height: 2000px;
+			}
+
+			.scroll-lock {
+				overflow: hidden;
+			}
+
+			.wrapper {
+				min-height: 100%;
+				overflow: hidden;
+			}
+
+			.dialogs {
+				z-index: 5;
+				position: fixed;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				visibility: hidden;
+				pointer-events: none;
+				overflow-y: auto;
+				overflow-x: hidden;
+
+				padding: 1rem;
+				background-color: rgba(23, 23, 23, 0.5);
+			}
+
+			.dialogs_open {
+				visibility: visible;
+				pointer-events: all;
+			}
+
+			.modal {
+				z-index: 6;
+				visibility: hidden;
+				pointer-events: none;
+
+				padding: 1rem;
+				background-color: white;
+			}
+
+			.modal_open {
+				opacity: 1;
+				position: relative;
+				visibility: visible;
+				pointer-events: all;
+			}
+
+			.modal__content {
+				min-height: 100%;
+			}
+
+			.test {
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				width: 100px;
+				height: 100px;
+				background-color: tomato;
+			}
+
+			.close-backdrop {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="wrapper">
+			<!-- Button trigger modal -->
+			<button
+				data-root-modal="true"
+				data-assignment="open-dialog"
+				data-target="#dialog1">
+				Open dialog
+			</button>
+
+			<!-- Modal -->
+			<div
+				class="dialogs"
+				hidden>
+				<!-- If need close backdrop -->
+				<div class="close-backdrop"></div>
+
+				<div
+					id="dialog1"
+					role="dialog"
+					aria-modal="true"
+					aria-labelledby="dialog1-title"
+					aria-describedby="dialog1-description"
+					class="dialog1 modal"
+					hidden>
+					<div class="modal__content">
+						<div class="modal__body">
+							<h2 id="dialog1-title">Title of the first dialog</h2>
+							<p id="dialog1-description">
+								Information provided by the first dialog.
+							</p>
+						</div>
+						<div class="modal__footer">
+							<div class="dialog1__actions">
+								<button
+									id="open-second-dialog"
+									data-assignment="open-dialog"
+									data-target="#dialog2"
+									aria-label="open second modal window">
+									Open second modal
+								</button>
+								<button
+									data-assignment="close-dialog"
+									aria-label="close">
+									Close
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div
+					id="dialog2"
+					role="dialog"
+					aria-modal="true"
+					aria-labelledby="dialog2-title"
+					aria-describedby="dialog2-description"
+					class="dialog2 modal"
+					hidden>
+					<div class="modal__content">
+						<div class="modal__body">
+							<h2 id="dialog2-title">Title of the second dialog</h2>
+							<p id="dialog2-description">
+								Information provided by the second dialog.
+							</p>
+							<p>
+								<a href="#">Some link</a>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
+								architecto aperiam quidem? Molestias impedit aliquam reiciendis.
+								Debitis id unde aspernatur dolorum. Facere porro non, dolorum
+								perspiciatis omnis autem quisquam quas provident ipsum earum
+								tempora voluptate accusamus sit natus consectetur. Ipsam modi
+								culpa ad adipisci, a incidunt velit totam laudantium temporibus
+								quos cum, neque commodi illum error accusamus quisquam ipsum sit
+								obcaecati sequi animi saepe quidem nobis? Pariatur soluta atque
+								placeat corrupti dolorum explicabo at voluptates ducimus,
+								molestiae et quibusdam accusantium minima velit deleniti in,
+								ipsa tempore modi dolore expedita! In, quibusdam debitis.
+								Numquam vel sit nesciunt quos error obcaecati minima commodi
+								esse perspiciatis nisi dolorem minus, distinctio, voluptatem
+								aspernatur? Accusantium alias veniam ea voluptas explicabo
+								magnam quam quod culpa eaque similique recusandae, placeat
+								maxime? Aut ab reiciendis delectus libero dicta molestias qui,
+								quibusdam in autem odio odit blanditiis officia quam, vero
+								earum. Voluptas facilis perferendis eos necessitatibus mollitia
+								autem sint repudiandae pariatur. Exercitationem mollitia
+								praesentium enim officiis molestiae, iure sequi velit dolores ad
+								sint laborum sunt commodi perspiciatis quisquam at corrupti,
+								inventore modi vel natus. Asperiores, perspiciatis ducimus.
+								Tempora, perferendis expedita rerum labore tenetur
+								necessitatibus, soluta illum ipsam, porro adipisci quia non?
+								Rerum obcaecati ullam, nostrum unde neque quod ut?
+							</p>
+						</div>
+						<div class="modal__footer">
+							<div class="dialog2__actions">
+								<button
+									data-assignment="close-dialog"
+									aria-label="close">
+									Close
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="test lock-padding"></div>
+		<p>
+			Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab magni,
+			voluptatem nulla consequuntur fuga eveniet quae, maiores beatae aut ipsum
+			dignissimos enim. Nemo harum molestiae odio quaerat eius laborum facilis
+			officiis? Consequuntur, praesentium, hic quaerat explicabo molestias
+			dolorem voluptate, neque esse libero quibusdam quod eveniet. Distinctio
+			maxime, inventore odit delectus dolorum, deleniti repellendus iusto
+			laudantium nemo necessitatibus cum esse debitis atque? Fugiat consequatur
+			optio neque cumque, sapiente sunt minima consectetur, nulla voluptatem
+			quis laborum asperiores esse temporibus quod delectus veniam id! Amet,
+			reprehenderit facilis iusto deserunt quidem sequi molestiae corporis
+			officiis, praesentium quos harum animi nam. Tempora voluptatibus veniam
+			error deserunt repellat facilis repellendus adipisci eos ullam eum,
+			consequatur consectetur quidem ab asperiores. Sequi non nulla sapiente
+			reprehenderit ab. Placeat repudiandae vitae vel velit ad est, neque ut at
+			hic eius sapiente atque debitis voluptate ex eum. Ab nisi tempora ut quo
+			veniam ex accusantium at quam magnam omnis ea pariatur voluptatem ipsa
+			sapiente dignissimos neque nesciunt perspiciatis consequatur, qui saepe
+			porro sit cupiditate. Assumenda aspernatur veritatis doloribus odit ea
+			harum ipsa esse illum, fugiat nesciunt, reiciendis labore, fuga sunt omnis
+			voluptas placeat? Aut natus exercitationem hic quas quisquam ullam sit
+			nihil ab eaque possimus, cupiditate praesentium debitis, consectetur
+			temporibus architecto tenetur qui fugiat quo dolore eveniet totam sequi,
+			esse soluta. Qui rerum architecto cupiditate est officia delectus quis
+			consectetur vero at, distinctio repellat, quam commodi dolorem odio ipsum
+			cumque velit quisquam harum numquam nam deleniti dolor necessitatibus.
+			Soluta commodi magnam, nobis magni dolore quasi necessitatibus, modi
+			itaque, in suscipit sunt veritatis et atque sed consequatur. Aliquam esse
+			exercitationem nam, saepe consectetur laborum consequuntur doloribus
+			praesentium molestiae sapiente eligendi eaque, voluptatum debitis alias
+			fugit quibusdam expedita? Consectetur illo nostrum libero exercitationem
+			voluptatem consequatur perferendis velit, quas, corrupti quisquam harum
+			quod iure. Doloremque blanditiis iusto vitae reprehenderit, culpa velit
+			modi vero.
+		</p>
+
+		<script>
+			const body = document.querySelector('body');
+			const openDialogButtons = document.querySelectorAll(
+				'[data-assignment=open-dialog]'
+			);
+			const lockPadding = document.querySelectorAll('.lock-padding'); // For position:fixed elements
+
+			const timeoutToUnlock = 400; // transition from CSS
+			let unlock = true;
+			let rootButton;
+
+			if (openDialogButtons.length) {
+				const closeDialogButtons = document.querySelectorAll(
+					'[data-assignment=close-dialog]'
+				);
+
+				if (closeDialogButtons.length) {
+					body.addEventListener('click', (e) => {
+						if (e.target.dataset.assignment === 'close-dialog') {
+							modalClose(e.target.closest('[role="dialog"]'));
+							e.preventDefault();
+						} else if (e.target.classList.contains('close-backdrop')) {
+							// If need close backdrop
+							let parentWrap = e.target.closest('.dialogs');
+							modalClose(parentWrap.querySelector('.modal_open'));
+						}
+					});
+				}
+
+				body.addEventListener('click', (e) => {
+					if (e.target.dataset.assignment === 'open-dialog') {
+						const targetID = e.target.dataset.target;
+						const modalToOpen = document.querySelector(`${targetID}`);
+
+						if (e.target.dataset.rootModal) {
+							rootButton = e.target;
+						}
+
+						modalOpen(modalToOpen);
+						e.preventDefault();
+					}
+				});
+
+				document.addEventListener('keydown', (e) => {
+					if (e.code === 'Escape') {
+						const openModal = document.querySelector('.modal_open');
+						modalClose(openModal);
+					}
+				});
+			}
+
+			function modalOpen(targetToOpen) {
+				if (targetToOpen && unlock) {
+					const currentOpenModal = document.querySelector('.modal_open');
+
+					currentOpenModal ? modalClose(currentOpenModal, false) : bodyLock();
+
+					const targetWrapper = targetToOpen.closest('.dialogs');
+
+					targetWrapper.removeAttribute('hidden');
+					targetWrapper.classList.add('dialogs_open');
+					targetToOpen.removeAttribute('hidden');
+					targetToOpen.classList.add('modal_open');
+
+					focusLock(targetToOpen);
+				}
+			}
+
+			function modalClose(targetToClose, doUnlock = true) {
+				if (unlock) {
+					targetToClose.classList.remove('modal_open');
+					targetToClose.setAttribute('hidden', '');
+
+					const targetWrapper = targetToClose.closest('.dialogs');
+					targetToClose.closest('.dialogs').classList.remove('dialogs_open');
+					targetToClose.closest('.dialogs').setAttribute('hidden', '');
+
+					if (doUnlock) {
+						bodyUnlock();
+
+						rootButton.focus();
+					}
+				}
+			}
+
+			function bodyLock() {
+				const lockPaddingValue = window.innerWidth - body.offsetWidth + 'px';
+
+				if (lockPadding.length) {
+					lockPadding.forEach((el) => {
+						el.style.left =
+							parseFloat(window.getComputedStyle(el).left) + lockPaddingValue;
+					});
+				}
+
+				body.style.paddingRight = lockPaddingValue;
+				body.classList.add('scroll-lock');
+
+				unlock = false;
+				setTimeout(() => {
+					unlock = true;
+				}, timeoutToUnlock);
+			}
+
+			function bodyUnlock() {
+				setTimeout(() => {
+					if (lockPadding.length) {
+						lockPadding.forEach((el) => {
+							el.removeAttribute('style');
+						});
+					}
+					body.removeAttribute('style');
+					body.classList.remove('scroll-lock');
+				}, timeoutToUnlock);
+
+				unlock = false;
+				setTimeout(() => {
+					unlock = true;
+				}, timeoutToUnlock);
+			}
+
+			// Modal focus lock
+
+			function focusLock(target) {
+				const focusableElements = target.querySelectorAll(
+					'a[href]:not([disabled]), button:not([disabled])'
+				);
+				const firstFocusableElement = focusableElements[0];
+				const lastFocusableElement =
+					focusableElements[focusableElements.length - 1];
+				const KEYCODE_TAB = 9;
+
+				firstFocusableElement.focus();
+
+				target.addEventListener('keydown', (e) => {
+					if (
+						document.body.classList.contains('scroll-lock') &&
+						(e.key === 'Tab' || e.keyCode === KEYCODE_TAB)
+					) {
+						if (e.shiftKey) {
+							if (document.activeElement === firstFocusableElement) {
+								lastFocusableElement.focus();
+								e.preventDefault();
+							}
+						} else {
+							if (document.activeElement === lastFocusableElement) {
+								firstFocusableElement.focus();
+								e.preventDefault();
+							}
+						}
+					}
+				});
+			}
+		</script>
+	</body>
+</html>

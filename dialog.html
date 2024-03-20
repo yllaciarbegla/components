@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Dialog</title>
+
+		<style>
+			body {
+				height: 200vh;
+			}
+			body:has(#modal[open]) {
+				overflow: hidden;
+			}
+			#modal {
+				width: 50%;
+				height: 500px;
+			}
+
+			/* Backdrop style */
+			#modal[open]::backdrop {
+				background: linear-gradient(45deg, rgba(146, 228, 111, 0.6) 0%, rgba(72, 108, 191, 0.6) 50%, rgba(177, 48, 169, 0.6) 100%);
+
+				backdrop-filter: blur(2px);
+			}
+
+			/* Animation */
+			#modal[open] {
+				animation: show 0.4s;
+			}
+
+			#modal.hide {
+				animation: hide 0.4s;
+			}
+
+			@keyframes show {
+				from {
+					opacity: 0;
+					transform: translateY(-20%);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0%);
+				}
+			}
+
+			@keyframes hide {
+				to {
+					opacity: 0;
+					transform: translateY(-20%);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<button id="modal-btn">Open modal</button>
+		<button id="pop-up-btn">Open pop-up</button>
+
+		<dialog
+			id="modal"
+			aria-labelledby="modal-title"
+			aria-describedby="modal-content">
+			<h2 id="modal-title">Modal window</h2>
+			<p id="modal-content">
+				This is a modal window.
+			</p>
+			<button
+				class="close-btn"
+				aria-label="Close modal">
+				Close JS
+			</button>
+
+			<form method="dialog">
+				<button aria-label="Close modal">Close by form submit (without JS)</button>
+			</form>
+		</dialog>
+
+		<dialog id="pop-up">
+			Pop-up window
+			<button class="close-btn">Close JS</button>
+			<form method="dialog">
+				<button>Close by form submit (without JS)</button>
+			</form>
+		</dialog>
+
+		<script>
+			const modalButton = document.querySelector('#modal-btn');
+			const modalWindow = document.querySelector('#modal');
+			const modalCloseButton = modalWindow.querySelector('.close-btn');
+
+			// Backdrop close
+			const handleBackdropClick = (e) => {
+				const modalRect = modalWindow.getBoundingClientRect();
+
+				if (e.clientX < modalRect.left || e.clientX > modalRect.right || e.clientY < modalRect.top || e.clientY > modalRect.bottom) {
+					modalWindow.classList.add('hide');
+					modalWindow.addEventListener('animationend', onAnimationEnd);
+				}
+			};
+
+			modalWindow.addEventListener('click', handleBackdropClick);
+			// ==============
+
+			// Animation
+			const onAnimationEnd = () => {
+				modalWindow.classList.remove('hide');
+				modalWindow.close();
+				modalWindow.removeEventListener('animationend', onAnimationEnd);
+			};
+			// =========
+
+			modalButton.addEventListener('click', () => modalWindow.showModal());
+			modalCloseButton.addEventListener('click', () => {
+				modalWindow.classList.add('hide');
+				modalWindow.addEventListener('animationend', onAnimationEnd);
+			});
+
+			const popUpButton = document.querySelector('#pop-up-btn');
+			const popUpWindow = document.querySelector('#pop-up');
+			const popUpCloseButton = popUpWindow.querySelector('.close-btn');
+
+			popUpButton.addEventListener('click', () => popUpWindow.show());
+			popUpCloseButton.addEventListener('click', () => popUpWindow.close());
+		</script>
+	</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Theme toggle</title>
+		<style>
+			body {
+				height: 100vh;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+
+				text-align: center;
+			}
+
+			.theme-toggle {
+				padding: 8px 16px;
+				cursor: pointer;
+				touch-action: manipulation;
+				-webkit-tap-highlight-color: transparent;
+				outline-offset: 5px;
+			}
+
+			/* ====== */
+
+			html[data-theme='dark'] {
+				color-scheme: dark;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>Theme switcher</h1>
+		<button
+			id="theme-toggle"
+			class="theme-toggle"
+			title="Toggles light & dark"
+			aria-label="auto"
+			aria-live="polite">
+			Switch
+		</button>
+
+		<script>
+			const storageKey = 'theme-preference';
+
+			const getThemePreference = () => {
+				if (localStorage.getItem(storageKey)) {
+					return localStorage.getItem(storageKey);
+				} else {
+					return window.matchMedia('(prefers-color-scheme: dark)').matches
+						? 'dark'
+						: 'light';
+				}
+			};
+
+			const theme = {
+				value: getThemePreference(),
+			};
+
+			const setThemeClass = () => {
+				let currentThemeClass;
+				let newThemeClass;
+
+				if (document.documentElement.classList.contains('light')) {
+					currentThemeClass = 'light';
+					newThemeClass = 'dark';
+				} else if (document.documentElement.classList.contains('dark')) {
+					currentThemeClass = 'dark';
+					newThemeClass = 'light';
+				} else {
+					newThemeClass = theme.value;
+				}
+
+				if (currentThemeClass)
+					document.documentElement.classList.remove(`${currentThemeClass}`);
+				document.documentElement.classList.add(`${newThemeClass}`);
+			};
+
+			const reflectPreference = () => {
+				document.firstElementChild.setAttribute('data-theme', theme.value);
+				document
+					.querySelector('#theme-toggle')
+					.setAttribute('aria-label', theme.value);
+
+				setThemeClass();
+			};
+
+			// reflectPreference();
+
+			const setPreference = () => {
+				localStorage.setItem(storageKey, theme.value);
+				reflectPreference();
+			};
+
+			// set early so no page flashes / CSS is made aware
+
+			const switchTheme = () => {
+				theme.value = theme.value === 'light' ? 'dark' : 'light';
+
+				setPreference();
+			};
+
+			window.addEventListener('load', () => {
+				// set on load so screen readers can get the latest value on the button
+				reflectPreference();
+
+				document
+					.querySelector('#theme-toggle')
+					.addEventListener('click', switchTheme);
+			});
+
+			// sync with system changes
+			window
+				.matchMedia('(prefers-color-scheme: dark)')
+				.addEventListener('change', ({matches: isDark}) => {
+					theme.value = isDark ? 'dark' : 'light';
+					setPreference();
+				});
+		</script>
+	</body>
+</html>

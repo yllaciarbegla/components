@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="stylesheet"
+			href="reset.css" />
+		<title>Slider</title>
+
+		<style>
+			body {
+				min-height: 100dvh;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				background: #222;
+			}
+
+			/* --  -- */
+
+			.slider {
+				position: relative;
+
+				mask-image: linear-gradient(90deg, transparent, #222 10%, #222 90%, transparent);
+			}
+
+			.slider__wrapper {
+				position: relative;
+				width: 100%;
+				padding: 0 20px;
+				display: flex;
+				flex-wrap: nowrap;
+				gap: 20px;
+				overflow: hidden;
+				cursor: grab;
+			}
+			.slider__wrapper_active {
+				cursor: grabbing;
+			}
+
+			.slider__item {
+				flex: 1 0 30%;
+				height: 130px;
+				user-select: none;
+				background: tomato;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="slider">
+			<ul class="slider__wrapper">
+				<li
+					class="slider__item"
+					tabindex="0"></li>
+				<li
+					class="slider__item"
+					tabindex="0"></li>
+				<li
+					class="slider__item"
+					tabindex="0"></li>
+				<li
+					class="slider__item"
+					tabindex="0"></li>
+				<li
+					class="slider__item"
+					tabindex="0"></li>
+				<li
+					class="slider__item"
+					tabindex="0"></li>
+				<li
+					class="slider__item"
+					tabindex="0"></li>
+				<li
+					class="slider__item"
+					tabindex="0"></li>
+				<li
+					class="slider__item"
+					tabindex="0"></li>
+				<li
+					class="slider__item"
+					tabindex="0"></li>
+			</ul>
+		</div>
+
+		<script>
+			let isDown = false;
+			let startX;
+			let scrollLeft;
+			const slider = document.querySelector('.slider__wrapper');
+
+			const end = () => {
+				isDown = false;
+				slider.classList.remove('slider__wrapper_active');
+			};
+
+			const start = (e) => {
+				isDown = true;
+				slider.classList.add('slider__wrapper_active');
+				startX = e.pageX || e.touches[0].pageX - slider.offsetLeft;
+				scrollLeft = slider.scrollLeft;
+			};
+
+			const move = (e) => {
+				if (!isDown) return;
+
+				e.preventDefault();
+				const x = e.pageX || e.touches[0].pageX - slider.offsetLeft;
+				const dist = x - startX;
+				slider.scrollLeft = scrollLeft - dist;
+			};
+
+			window.addEventListener('load', () => {
+				slider.addEventListener('mousedown', start);
+				slider.addEventListener('touchstart', start);
+
+				slider.addEventListener('mousemove', move);
+				slider.addEventListener('touchmove', move);
+
+				slider.addEventListener('mouseleave', end);
+				slider.addEventListener('mouseup', end);
+				slider.addEventListener('touchend', end);
+			});
+		</script>
+	</body>
+</html>

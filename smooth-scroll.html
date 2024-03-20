@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Smooth scroll</title>
+		<style>
+			.block {
+				min-height: 3000px;
+				background-color: tomato;
+				position: relative;
+			}
+
+			#third > a {
+				position: absolute;
+				top: 50%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<a
+			id="first"
+			class="smooth-link"
+			href="#second">
+			First link
+		</a>
+
+		<div class="block">
+			<a
+				id="third"
+				class="smooth-link"
+				href="#first">
+				Third link
+			</a>
+		</div>
+
+		<a
+			id="second"
+			class="smooth-link"
+			href="#third">
+			Second link
+		</a>
+
+		<script>
+			document.addEventListener('click', (e) => {
+				if (e.target.classList.contains('smooth-link')) {
+					e.preventDefault();
+					document
+						.querySelector(`${e.target.getAttribute('href')}`)
+						.scrollIntoView({
+							behavior: 'smooth',
+							block: 'start',
+						});
+				}
+			});
+		</script>
+	</body>
+</html>

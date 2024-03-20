@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Scroll animation</title>
+		<style>
+			body {
+				background-color: lightgreen;
+			}
+
+			p {
+				padding-bottom: 20px;
+			}
+
+			.wrapper {
+				max-width: 1200px;
+				padding: 200px;
+				margin: 0 auto;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				background-color: tomato;
+			}
+
+			.intro {
+				margin-bottom: 500px;
+				text-align: center;
+			}
+
+			.intro__title {
+				transform: translate(0, 120%);
+				opacity: 0;
+				transition: all 0.8s;
+			}
+
+			.intro__title._element-show {
+				transform: translate(0, 0);
+				opacity: 1;
+			}
+
+			.intro__text {
+				transform: translate(0, 120%);
+				opacity: 0;
+				transition: all 0.8s;
+			}
+
+			.intro__text._element-show {
+				transform: translate(0, 0);
+				opacity: 1;
+			}
+
+			.text p {
+				opacity: 0;
+				transition: opacity 0.8s;
+			}
+
+			.text._element-show p {
+				opacity: 1;
+			}
+
+			ul li {
+				transform: translate(-120%, 0);
+				opacity: 0;
+				transition: all 0.8s;
+			}
+
+			ul._element-show li {
+				transform: translate(0, 0);
+				opacity: 1;
+			}
+
+			ul li:nth-child(1) {
+				transition-delay: 0.2s;
+			}
+
+			ul li:nth-child(2) {
+				transition-delay: 0.4s;
+			}
+
+			ul li:nth-child(3) {
+				transition-delay: 0.6s;
+			}
+
+			ul li:nth-child(4) {
+				transition-delay: 0.8s;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="wrapper">
+			<div class="intro">
+				<h1 class="intro__title element-animation">Example title</h1>
+				<p class="intro__text element-animation">
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis,
+					possimus!
+				</p>
+			</div>
+			<div class="text element-animation">
+				<p class="element-animation">
+					Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem quo,
+					enim id modi laborum ex soluta, magni possimus ratione nesciunt at hic
+					explicabo odit nihil! Maxime quo nesciunt iusto sequi corrupti numquam
+					esse officia eveniet tempore dicta natus eum et maiores, eius quidem
+					laboriosam nostrum rerum delectus rem earum alias, debitis voluptatem?
+					Labore obcaecati nemo, fuga, voluptates adipisci laudantium quas
+					voluptate doloremque id corrupti soluta pariatur laborum eligendi! Est
+					quibusdam aperiam autem accusamus architecto maiores at, ut ducimus
+					voluptatibus atque explicabo in nobis doloremque facilis voluptatem
+					ipsum consequuntur laudantium, quidem iure optio dolores quo illum.
+					Error, similique ipsam at magni molestias laudantium repudiandae in
+					accusamus sit veritatis vel, illo ullam quasi! Magnam consequatur
+					delectus quod a, eos dolorem commodi omnis quam nesciunt atque maiores
+					rem molestiae alias tenetur reprehenderit voluptas id aliquid eius
+					enim inventore cumque dolores fugiat? Deleniti quia deserunt eum
+					tempore dignissimos illo? Pariatur deserunt veniam delectus officiis
+					nemo, aliquid nobis atque odit ea quae eligendi facilis corporis alias
+					porro commodi dignissimos quasi dolore et. Doloribus, placeat? Earum
+					asperiores obcaecati perferendis unde minima modi dolores sapiente
+					reprehenderit ad! At, impedit cumque! Illum ab voluptate id, amet odit
+					quo vero cupiditate ut, explicabo reiciendis magnam nisi, modi quasi
+					aliquam!
+				</p>
+				<ul class="element-animation">
+					<li>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores eum
+						mollitia rem. Veritatis saepe enim assumenda qui ipsum quas
+						deleniti.
+					</li>
+					<li>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores eum
+						mollitia rem. Veritatis saepe enim assumenda qui ipsum quas
+						deleniti.
+					</li>
+					<li>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores eum
+						mollitia rem. Veritatis saepe enim assumenda qui ipsum quas
+						deleniti.
+					</li>
+					<li>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores eum
+						mollitia rem. Veritatis saepe enim assumenda qui ipsum quas
+						deleniti.
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<script>
+			function onEntry(entry) {
+				entry.forEach((change) => {
+					if (change.isIntersecting) {
+						change.target.classList.add('_element-show');
+					}
+				});
+			}
+
+			let options = {
+				threshold: 0.3,
+			};
+			let observer = new IntersectionObserver(onEntry, options);
+			let elements = document.querySelectorAll('.element-animation');
+
+			for (let elem of elements) {
+				observer.observe(elem);
+			}
+		</script>
+	</body>
+</html>

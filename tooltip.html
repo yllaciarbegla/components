@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Tooltip</title>
+
+		<style>
+			* {
+				box-sizing: border-box;
+			}
+			body {
+				min-height: 100vh;
+				display: flex;
+				gap: 1.5rem;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				background-color: #363642;
+			}
+			.label {
+				width: min(90%, 500px);
+				padding: 10px 20px;
+				border-radius: 8px;
+				font-size: 1.5rem;
+				background-color: aquamarine;
+			}
+			.label__tooltip-i {
+				display: inline-block;
+				padding: 5px;
+				width: 2.2rem;
+				height: 2.2rem;
+				border-radius: 50%;
+				border: 1px solid;
+				text-align: center;
+
+				background-color: #fff;
+			}
+			.label__tooltip-i:hover,
+			.label__tooltip-i:focus-visible {
+				background-color: lightcoral;
+				outline: auto;
+			}
+
+			/* === */
+
+			.tooltip-toggle {
+				cursor: pointer;
+				position: relative;
+			}
+
+			/* Tooltip text container */
+			.tooltip-toggle::before {
+				content: attr(data-tooltip-text);
+				width: 160px;
+				position: absolute;
+				top: 0;
+				left: 50%;
+				transform: translate(-50%, calc(-100% - 12px));
+				background-color: #2b222a;
+				border-radius: 4px;
+				color: white;
+				padding: 0.6rem;
+				transition: all 0.5s ease;
+			}
+
+			/* Tooltip arrow */
+			.tooltip-toggle::after {
+				content: '';
+				position: absolute;
+				top: -12px;
+				left: 50%;
+				transform: translateX(-50%);
+				border-left: 5px solid transparent;
+				border-right: 5px solid transparent;
+				border-top: 5px solid #2b222a;
+			}
+
+			/* Setting up the transition */
+			.tooltip-toggle::before,
+			.tooltip-toggle::after {
+				opacity: 0;
+				visibility: hidden;
+				pointer-events: none;
+			}
+
+			/* Triggering the transition */
+			.tooltip-toggle:focus::before,
+			.tooltip-toggle:focus::after,
+			.tooltip-toggle:hover::before,
+			.tooltip-toggle:hover::after {
+				opacity: 1;
+				visibility: visible;
+				transition: all 0.75s ease;
+			}
+
+			/* Password tooltip */
+
+			.pass {
+				position: relative;
+			}
+			.pass__label {
+				width: fit-content;
+				display: flex;
+				gap: 5px;
+				align-items: center;
+			}
+			.pass__tooltip {
+				opacity: 1;
+				visibility: visible;
+				transition: opacity 0.5s ease-in 1s, visibility 0.5s ease-in 1s;
+				position: absolute;
+				left: 0;
+				top: calc(100% + 12px);
+				max-width: 100%;
+				border-radius: 4px;
+				padding: 0.6rem;
+				color: white;
+				background-color: #2b222a;
+				font-size: 1.2rem;
+			}
+			/* Tooltip arrow */
+			.pass__tooltip::before {
+				content: '';
+				position: absolute;
+				top: -5px;
+				left: 10%;
+				transform: translateX(-50%);
+				border-left: 5px solid transparent;
+				border-right: 5px solid transparent;
+				border-bottom: 5px solid #2b222a;
+			}
+			.pass__tooltip ul[title]::before {
+				content: attr(title);
+				display: block;
+				font-weight: bold;
+				padding: 4px;
+			}
+			.pass__tooltip_hidden {
+				opacity: 0;
+				visibility: hidden;
+				pointer-events: none;
+				transition: opacity 0.4s, visibility 0.4s;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="label">
+			<span
+				class="label__tooltip-i tooltip-toggle"
+				data-tooltip-text="Sample text for your tooltip!"
+				tabindex="0">
+				i
+			</span>
+			<span class="label__text">Hover/click to top tooltip!</span>
+		</div>
+
+		<div class="label pass">
+			<label class="pass__label">
+				Password:
+				<input
+					class="test"
+					aria-describedby="passwordrules"
+					id="password"
+					type="password" />
+			</label>
+			<div
+				class="pass__tooltip pass__tooltip_hidden"
+				role="tooltip"
+				id="passwordrules"
+				aria-hidden="true">
+				<ul title="Password Rules:">
+					<li>Minimum of 8 characters</li>
+					<li>
+						Include at least one lowercase letter, one uppercase letter, one
+						number and one special character
+					</li>
+					<li>Unique to this website</li>
+				</ul>
+			</div>
+		</div>
+
+		<script>
+			const passElement = document.querySelector('.pass__label');
+			let tooltipIsOpen = false;
+
+			passElement.querySelector('input').addEventListener('focus', (e) => {
+				if (tooltipIsOpen === false) {
+					tooltipIsOpen = true;
+					showTooltip(passElement);
+				}
+			});
+			passElement.querySelector('input').addEventListener('blur', (e) => {
+				if (tooltipIsOpen === true) {
+					tooltipIsOpen = false;
+					hideTooltip(passElement);
+				}
+			});
+
+			passElement.addEventListener('mouseenter', (e) => {
+				if (tooltipIsOpen === false) {
+					tooltipIsOpen = true;
+					showTooltip(passElement);
+				}
+			});
+			passElement.addEventListener('mouseleave', (e) => {
+				if (
+					tooltipIsOpen === true &&
+					document.activeElement !== passElement.querySelector('input')
+				) {
+					tooltipIsOpen = false;
+					hideTooltip(passElement);
+				}
+			});
+
+			function showTooltip(target) {
+				const toltipToOpenID =
+					'#' + target.querySelector('input').getAttribute('aria-describedby');
+				const tooltipToOpen = target
+					.closest('.pass')
+					.querySelector(toltipToOpenID);
+
+				tooltipToOpen.setAttribute('aria-hidden', 'false');
+				tooltipToOpen.classList.remove('pass__tooltip_hidden');
+			}
+
+			function hideTooltip(target) {
+				const toltipToCloseID =
+					'#' + target.querySelector('input').getAttribute('aria-describedby');
+				const tooltipToClose = target
+					.closest('.pass')
+					.querySelector(toltipToCloseID);
+
+				tooltipToClose.classList.add('pass__tooltip_hidden');
+				tooltipToClose.setAttribute('aria-hidden', 'true');
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Accordion & collapse</title>
+		<style>
+			.accordion-item {
+				margin-bottom: 15px;
+			}
+
+			.accordion-item__active .accordion-item__trigger {
+				background-color: lightblue;
+			}
+
+			.accordion-item__active .accordion-item__content {
+				background-color: yellow;
+			}
+
+			.accordion-item__trigger {
+				padding: 20px;
+				border: 1px solid black;
+				cursor: pointer;
+				background-color: transparent;
+				width: 100%;
+			}
+
+			.accordion-item__content {
+				border: 1px solid black;
+				border-top: none;
+			}
+
+			.collapsible {
+				visibility: visible;
+				pointer-events: all;
+				margin: 0;
+				padding: 20px;
+				max-height: 100rem;
+				overflow: hidden;
+				clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+				transition: all 0.5s;
+			}
+
+			.collapsible_collapsed {
+				visibility: hidden;
+				pointer-events: none;
+				height: 0;
+				max-height: 0;
+				padding: 0 20px;
+				margin: 0;
+				clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="accordion">
+			<div class="accordion-item">
+				<button
+					class="accordion-item__trigger"
+					aria-expanded="false"
+					aria-controls="first-item-content">
+					Trigger 1
+				</button>
+				<div
+					id="first-item-content"
+					class="accordion-item__content collapsible collapsible_collapsed">
+					Content 1
+				</div>
+			</div>
+			<div class="accordion-item">
+				<button
+					class="accordion-item__trigger"
+					aria-expanded="false"
+					aria-controls="second-item-content">
+					Trigger 2
+				</button>
+				<div
+					id="second-item-content"
+					class="accordion-item__content collapsible collapsible_collapsed">
+					Content 2
+				</div>
+			</div>
+		</div>
+
+		<script>
+			// document.querySelector('.accordion').addEventListener('click', (e) => {
+			// 	if (e.target.classList.contains('accordion-item__trigger')) {
+			// 		const parentItem = e.target.closest('.accordion-item');
+
+			// 		parentItem.classList.toggle('accordion-item__active');
+
+			// 		e.target.getAttribute('aria-expanded') === 'false'
+			// 			? e.target.setAttribute('aria-expanded', true)
+			// 			: e.target.setAttribute('aria-expanded', false);
+
+			// 		//	Collapsible content element
+			// 		parentItem
+			// 			.querySelector('.accordion-item__content')
+			// 			.classList.toggle('collapsible_collapsed');
+			// 	}
+			// });
+
+			document.querySelector('.accordion').addEventListener('click', (e) => {
+				if (e.target.classList.contains('accordion-item__trigger')) {
+					const parentItem = e.target.closest('.accordion-item');
+
+					if (parentItem.classList.contains('accordion-item__active')) {
+						parentItem.classList.remove('accordion-item__active');
+						e.target.setAttribute('aria-expanded', false);
+						parentItem
+							.querySelector('.accordion-item__content')
+							.classList.toggle('collapsible_collapsed');
+					} else {
+						document.querySelectorAll('.accordion-item').forEach((item) => {
+							if (item.classList.contains('accordion-item__active')) {
+								item.classList.remove('accordion-item__active');
+								item
+									.querySelector('.accordion-item__trigger')
+									.setAttribute('aria-expanded', false);
+								item
+									.querySelector('.accordion-item__content')
+									.classList.toggle('collapsible_collapsed');
+							}
+						});
+
+						parentItem.classList.add('accordion-item__active');
+						e.target.setAttribute('aria-expanded', true);
+						parentItem
+							.querySelector('.accordion-item__content')
+							.classList.toggle('collapsible_collapsed');
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Cursor</title>
+		<link
+			rel="stylesheet"
+			href="reset.css" />
+		<style>
+			* {
+				cursor: none;
+			}
+
+			.page {
+				width: 100vw;
+				height: 100vh;
+				position: relative;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background-color: black;
+			}
+
+			.active-button {
+				height: 10vh;
+				width: 20vw;
+				background-color: tomato;
+			}
+
+			/* cursor */
+
+			.cursor,
+			.aura {
+				z-index: 1000;
+				border-radius: 100%;
+			}
+
+			.cursor.hidden,
+			.aura.hidden {
+				opacity: 0;
+			}
+
+			.cursor {
+				z-index: 10;
+				width: 10px;
+				height: 10px;
+				position: fixed;
+				transform: translate(-50%, -50%);
+				pointer-events: none;
+				transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+				background-color: rgba(255, 255, 255, 0.674);
+			}
+
+			.cursor.active {
+				background-color: rgba(0, 0, 0, 0);
+			}
+
+			.aura {
+				z-index: 9;
+				width: 50px;
+				height: 50px;
+				border: 1px solid rgba(255, 255, 255, 0.6);
+				position: fixed;
+				left: 0;
+				top: 0;
+				transform: translate(calc(-50% + 15px), -50%);
+				transition: all 150ms ease-out;
+				pointer-events: none;
+				background-color: rgba(255, 255, 255, 0.2);
+			}
+
+			.aura.active {
+				background-color: rgba(255, 255, 255, 0.6);
+			}
+
+			.cursorinnerhover {
+				width: 50px;
+				height: 50px;
+				opacity: 0.5;
+			}
+		</style>
+	</head>
+
+	<body class="page">
+		<div class="cursor hidden"></div>
+		<div class="aura hidden"></div>
+
+		<div class="active-button"></div>
+
+		<script>
+			let aura = document.querySelector('.aura');
+			let cursor = document.querySelector('.cursor');
+
+			document.addEventListener('mousemove', (e) => {
+				let x = e.clientX;
+				let y = e.clientY;
+
+				cursor.style.left = x + 'px';
+				cursor.style.top = y + 'px';
+
+				aura.style.transform = `translate(calc(${x}px - 50%), calc(${y}px - 50%)`;
+			});
+
+			document.addEventListener('mousedown', () => {
+				cursor.classList.add('cursorinnerhover');
+			});
+
+			document.addEventListener('mouseup', () => {
+				cursor.classList.remove('cursorinnerhover');
+			});
+
+			document.addEventListener('mouseover', (e) => {
+				cursor.classList.remove('hidden');
+				aura.classList.remove('hidden');
+
+				if (e.target.classList.contains('active-button')) {
+					cursor.classList.add('active');
+					aura.classList.add('active');
+				}
+			});
+
+			document.addEventListener('mouseout', (e) => {
+				cursor.classList.add('hidden');
+				aura.classList.add('hidden');
+
+				if (e.target.classList.contains('active-button')) {
+					cursor.classList.remove('active');
+					aura.classList.remove('active');
+				}
+			});
+		</script>
+	</body>
+</html>
