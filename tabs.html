@@ -2,12 +2,8 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta
-			http-equiv="X-UA-Compatible"
-			content="IE=edge" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Tabs</title>
 		<style>
 			.tabs__list {
@@ -45,9 +41,7 @@
 
 	<body>
 		<div class="tabs">
-			<div
-				class="tabs__list"
-				role="tablist">
+			<div class="tabs__list" role="tablist">
 				<button
 					id="tab-1"
 					class="tabs__item"
@@ -131,26 +125,6 @@
 		</div>
 
 		<script>
-			// let triggers = document.querySelectorAll(".tabs__trigger-item");
-			// let contents = document.querySelectorAll(".tabs__content-item");
-
-			// triggers.forEach(item => {
-			// 	item.addEventListener("click", (e) => {
-			// 		e.preventDefault();
-			// 		const id = e.target.getAttribute("href").replace("#", "");
-
-			// 		triggers.forEach(item => item.classList.remove("active"));
-			// 		contents.forEach(item => item.classList.remove("active"));
-
-			// 		e.target.classList.add("active");
-			// 		document.querySelector(`#${id}`).classList.add("active");
-			// 	})
-			// });
-
-			// document.querySelector(".tabs__trigger-item").click();
-
-			// ================
-
 			class TabsManual {
 				constructor(groupNode) {
 					this.tablistNode = groupNode;
