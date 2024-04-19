@@ -1,0 +1,64 @@
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.carousel {
+	padding: 1rem;
+	border: 1px solid;
+}
+
+.carousel__controls {
+	padding: 1rem;
+	border: 1px solid;
+
+	display: flex;
+	justify-content: space-between;
+}
+
+.carousel__slides {
+	padding: 1rem;
+	border: 1px solid;
+}
+
+.carousel__slide {
+	min-height: 300px;
+	border: 1px solid;
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+	justify-content: center;
+}
+
+.pagination__item {
+	display: inline-block;
+	width: 20px;
+	aspect-ratio: 1;
+	border-radius: 50%;
+	background-color: lightgray;
+}
+
+input[type='radio'] + .pagination__item:hover {
+	cursor: pointer;
+}
+
+input[type='radio']:checked + .pagination__item {
+	background-color: black;
+}
+
+button:focus,
+a:focus,
+input:focus,
+input[type='radio']:focus + .pagination__item {
+	outline: 2px dotted red;
+	outline-offset: 2px;
+}
+
+button[aria-pressed='true'] {
+	background-color: lightgreen;
+}

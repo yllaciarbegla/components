@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Carousel</title>
+
+		<link rel="stylesheet" href="carousel.css" />
+		<script src="carousel.js" defer></script>
+	</head>
+	<body>
+		<div
+			class="carousel"
+			data-carousel="carousel-1"
+			role="region"
+			aria-label="Carousel">
+			<div class="carousel__controls" role="group" aria-label="Slide controls">
+				<button
+					aria-pressed="true"
+					data-carousel-autoplay=""
+					data-carousel-id="carousel-1"
+					aria-label="Stop/start auto-rotation">
+					Stop/start auto-rotation
+				</button>
+
+				<div class="carousel__pagination pagination">
+					<input
+						checked=""
+						class="visually-hidden"
+						id="carousel-1-slide-1"
+						name="carousel-1"
+						type="radio"
+						value="carousel-1-slide-1"
+						data-carousel-element="radio" />
+					<label class="pagination__item" for="carousel-1-slide-1"
+						><span class="visually-hidden">Show slide 1 of 3</span></label
+					>
+				</div>
+				<div class="carousel__pagination pagination">
+					<input
+						class="visually-hidden"
+						id="carousel-1-slide-2"
+						name="carousel-1"
+						type="radio"
+						value="carousel-1-slide-2"
+						data-carousel-element="radio" />
+					<label class="pagination__item" for="carousel-1-slide-2"
+						><span class="visually-hidden">Show slide 2 of 3</span></label
+					>
+				</div>
+				<div class="carousel__pagination pagination">
+					<input
+						class="visually-hidden"
+						id="carousel-1-slide-3"
+						name="carousel-1"
+						type="radio"
+						value="carousel-1-slide-3"
+						data-carousel-element="radio" />
+					<label class="pagination__item" for="carousel-1-slide-3"
+						><span class="visually-hidden">Show slide 3 of 3</span></label
+					>
+				</div>
+
+				<button
+					data-carousel-direction="previous"
+					data-carousel-id="carousel-1"
+					aria-label="Previous slide">
+					Previous slide
+				</button>
+				<button
+					data-carousel-direction="next"
+					data-carousel-id="carousel-1"
+					aria-label="Next slide">
+					Next slide
+				</button>
+			</div>
+
+			<div class="carousel__slides">
+				<div
+					id="carousel-1-slide-1_panel"
+					class="carousel__slide carousel__slide_blueviolet"
+					role="group"
+					aria-roledescription="slide"
+					aria-label="First slide">
+					<span>1</span>
+					<a href="#">1 test link</a>
+				</div>
+				<div
+					id="carousel-1-slide-2_panel"
+					class="carousel__slide carousel__slide_almon"
+					role="group"
+					aria-roledescription="slide"
+					aria-label="Second slide"
+					style="display: none">
+					<span>2</span>
+					<a href="#">2 test link</a>
+				</div>
+				<div
+					id="carousel-1-slide-3_panel"
+					class="carousel__slide carousel__slide_dod"
+					role="group"
+					aria-roledescription="slide"
+					aria-label="Third slide"
+					style="display: none">
+					<span>3</span>
+					<a href="#">3 test link</a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
