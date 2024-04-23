@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Parallax on mousemove</title>
+		<link rel="stylesheet" href="../../reset.css" />
+
+		<style>
+			.page {
+				padding: 2rem;
+			}
+			.parallax {
+				position: relative;
+				overflow: hidden;
+				height: 100%;
+				border: 1px solid;
+			}
+			.parallax__layer {
+				position: absolute;
+			}
+
+			.parallax__background {
+				background: url('../../img/konohagakure.jpg') top / cover no-repeat;
+
+				inset: -5%;
+				width: 110%;
+				height: 110%;
+			}
+
+			.parallax__naruto {
+				width: 25%;
+			}
+			.parallax__naruto_child {
+				background: url('../../img/naruto-child.png') no-repeat;
+				background-size: contain;
+				height: 25%;
+				top: 35%;
+				left: 15%;
+			}
+
+			.parallax__naruto_teen {
+				background: url('../../img/naruto-teen.png') no-repeat;
+				background-size: contain;
+				height: 45%;
+				top: 20%;
+				right: 15%;
+			}
+		</style>
+	</head>
+	<body class="page">
+		<div class="parallax">
+			<div
+				class="parallax__layer parallax__background"
+				data-parallax-coef="40"></div>
+			<div
+				class="parallax__layer parallax__naruto parallax__naruto_child"
+				data-parallax-coef="3"
+				data-parallax-inverted="true"></div>
+			<div
+				class="parallax__layer parallax__naruto parallax__naruto_teen"
+				data-parallax-coef="5"></div>
+		</div>
+
+		<script>
+			const parallax = document.querySelector('.parallax');
+			const paralaxLayers = document.querySelectorAll('.parallax__layer');
+
+			// Coef
+			const forFirstImg = 40;
+			const forSecondImg = 20;
+			const forThirdImg = 10;
+
+			// Animation speed
+			const speed = 0.05;
+
+			let positionX = 0,
+				positionY = 0;
+			let coordXprocent = 0,
+				coordYprocent = 0;
+
+			const handleParallax = () => {
+				const distX = coordXprocent - positionX;
+				const distY = coordYprocent - positionY;
+
+				positionX = positionX + distX * speed;
+				positionY = positionY + distY * speed;
+
+				paralaxLayers.forEach((layer) => {
+					let coef = layer.dataset.parallaxCoef;
+
+					if (layer.dataset.parallaxInverted) {
+						coef *= -1;
+					}
+
+					layer.style.cssText = `transform: translate(${positionX / coef}%,${
+						positionY / coef
+					}%);`;
+				});
+
+				requestAnimationFrame(handleParallax);
+			};
+
+			handleParallax();
+
+			parallax.addEventListener('mousemove', (e) => {
+				const parallaxWidth = parallax.offsetWidth;
+				const parallaxHeight = parallax.offsetHeight;
+
+				const coordX = e.pageX - parallaxWidth / 2;
+				const coordY = e.pageY - parallaxHeight / 2;
+
+				coordXprocent = (coordX / parallaxWidth) * 100;
+				coordYprocent = (coordY / parallaxHeight) * 100;
+			});
+		</script>
+	</body>
+</html>

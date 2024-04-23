@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="../reset.css" />
+		<title>Parallax CSS</title>
+
+		<style>
+			html {
+				height: 100vh;
+				height: 100svh;
+				overflow: hidden;
+			}
+			body {
+				width: 100vw;
+				height: 100vh;
+				background: #222;
+
+				perspective: 1px;
+				overflow-x: hidden;
+				overflow-y: scroll;
+			}
+			.hero {
+				width: 100%;
+				min-height: 100vh;
+				position: relative;
+				transform-style: preserve-3d;
+			}
+
+			/* Background images */
+			.hero::before {
+				content: '';
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				background: url(../img/background.png) top center;
+				background-size: cover;
+				transform: translateZ(-1px) scale(2.03);
+			}
+			.hero::after {
+				content: '';
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				background: url(../img/foreground.png) top center;
+				background-size: cover;
+			}
+
+			.hero .text {
+				top: 10%;
+				transform: translateZ(-0.5px) scale(1.5) translate(-50%, 50%);
+			}
+			.section2 {
+				background: rgb(68, 35, 19);
+			}
+			.text {
+				top: 30%;
+				left: 50%;
+				position: absolute;
+				font-family: sans-serif;
+				font-size: 15vw;
+				color: white;
+				text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3),
+					5px 5px 70px rgba(255, 255, 255, 0.5);
+			}
+			.main-content {
+				position: relative; /* !important */
+
+				padding: 1rem;
+				background: #222;
+				color: aliceblue;
+			}
+
+			/* Instead background */
+			.hero__background {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				inset: 0;
+				transform: translateZ(-1px) scale(2.02);
+				object-fit: cover;
+			}
+			.hero__foreground {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				inset: 0;
+				object-fit: cover;
+			}
+		</style>
+	</head>
+	<body class="parallax">
+		<div class="hero">
+			<div class="text">PARALLAX</div>
+			<!-- <img class="hero__background" src="../img/background.png" />
+			<img class="hero__foreground" src="../img/foreground.png" /> -->
+		</div>
+		<main class="main-content">
+			<p>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab id magnam
+				maxime officiis voluptatum, ratione, molestias vitae quas iste tempore
+				reiciendis est quibusdam quae ullam autem nihil sequi esse nobis?
+				Perspiciatis iusto debitis veniam sequi eveniet molestias et quos est
+				mollitia eligendi! Itaque non blanditiis eos ex doloribus vel dicta,
+				reprehenderit id quidem aliquid reiciendis sit neque fugit rem facere
+				modi minus minima dignissimos quibusdam. Ea inventore placeat nesciunt
+				iste assumenda vero, in, quia dicta provident cum modi quidem!
+				Aspernatur eaque eligendi fugit impedit nulla adipisci perspiciatis quos
+				molestiae sed nobis optio magni assumenda sit molestias saepe, culpa
+				dolorum est dolorem, debitis consequatur rem. Suscipit ratione
+				reprehenderit nulla, optio laboriosam quos excepturi facilis ipsam
+				deleniti a, dolorem aliquam tempora autem eaque natus aperiam qui!
+				Aliquid eligendi placeat libero obcaecati recusandae. Tempora, modi
+				vitae illum aperiam assumenda commodi voluptate velit perspiciatis fuga
+				rem atque facilis architecto est explicabo nulla aliquid! Sunt, labore
+				quam possimus laudantium, natus modi corrupti ex soluta animi vitae
+				itaque ut! Veritatis quia quam consequuntur neque quo illo assumenda
+				facere quos quidem voluptatem, odio esse, nisi vero facilis beatae
+				repellat sit deleniti alias cum tempore laboriosam repudiandae id quasi
+				consequatur! Cupiditate molestiae dicta, quo odit ipsa distinctio
+				nostrum saepe unde rerum quas. Praesentium, dolor beatae libero quos
+				earum ipsum velit ullam architecto, dolores aut quis, neque similique
+				qui ipsam! Qui temporibus perferendis, cupiditate laboriosam autem
+				laudantium, at expedita voluptate impedit, praesentium commodi aliquid
+				perspiciatis. Temporibus sequi non laboriosam quae consectetur quaerat
+				vel, distinctio deserunt nostrum velit sunt ea? Eaque optio ducimus,
+				adipisci nostrum repellendus modi dolores. Doloribus, quos soluta
+				cupiditate atque nemo voluptatum aliquid quis, quidem hic in fugit?
+				Earum nesciunt non accusamus corporis recusandae? Alias magnam labore
+				nulla maxime expedita quam eligendi asperiores modi nostrum suscipit,
+				adipisci, totam hic quisquam? Cum culpa tempora animi sed blanditiis hic
+				neque, vero consectetur iure ullam ab voluptatem adipisci similique sit
+				totam esse saepe, nulla omnis. Pariatur numquam velit maiores dicta sit
+				corporis veniam in magni veritatis earum inventore mollitia omnis minus
+				eaque molestiae aliquam, facere distinctio? Quam reiciendis amet qui
+				explicabo asperiores eius impedit soluta officia nihil molestias libero
+				fugiat quas, natus ex aliquam alias similique. Fugit vitae deserunt
+				necessitatibus expedita veniam deleniti dicta maxime placeat magni
+				dolores, quam odit hic. Debitis adipisci error iure assumenda minus
+				labore ducimus repellat dolor tenetur voluptatem sequi, animi odit
+				consequuntur quidem illo itaque odio praesentium quaerat. Dolorem veniam
+				pariatur alias reiciendis quasi! Illum atque ipsa ratione, fugit vel
+				alias. Quasi quam est, tempora quisquam officiis excepturi nesciunt quas
+				architecto facilis inventore ratione reprehenderit doloribus pariatur et
+				obcaecati, natus ad tenetur dolorem repellendus maiores, eius nam.
+				Temporibus laudantium blanditiis suscipit vero ipsum laboriosam, iure
+				enim quibusdam quas non fugiat sapiente ut optio ipsam id. Quae sequi
+				debitis laboriosam quia magni sunt! Sed, beatae. Deleniti corrupti est,
+				accusantium vel aspernatur atque aperiam ullam obcaecati quisquam
+				consequuntur illum reiciendis ipsum quod quam nam minima dignissimos
+				ducimus facilis iure mollitia perspiciatis! Libero fuga dolor
+				consectetur necessitatibus iusto debitis, quaerat maxime saepe iure
+				porro vitae earum odit id.
+			</p>
+			<p>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab id magnam
+				maxime officiis voluptatum, ratione, molestias vitae quas iste tempore
+				reiciendis est quibusdam quae ullam autem nihil sequi esse nobis?
+				Perspiciatis iusto debitis veniam sequi eveniet molestias et quos est
+				mollitia eligendi! Itaque non blanditiis eos ex doloribus vel dicta,
+				reprehenderit id quidem aliquid reiciendis sit neque fugit rem facere
+				modi minus minima dignissimos quibusdam. Ea inventore placeat nesciunt
+				iste assumenda vero, in, quia dicta provident cum modi quidem!
+				Aspernatur eaque eligendi fugit impedit nulla adipisci perspiciatis quos
+				molestiae sed nobis optio magni assumenda sit molestias saepe, culpa
+				dolorum est dolorem, debitis consequatur rem. Suscipit ratione
+				reprehenderit nulla, optio laboriosam quos excepturi facilis ipsam
+				deleniti a, dolorem aliquam tempora autem eaque natus aperiam qui!
+				Aliquid eligendi placeat libero obcaecati recusandae. Tempora, modi
+				vitae illum aperiam assumenda commodi voluptate velit perspiciatis fuga
+				rem atque facilis architecto est explicabo nulla aliquid! Sunt, labore
+				quam possimus laudantium, natus modi corrupti ex soluta animi vitae
+				itaque ut! Veritatis quia quam consequuntur neque quo illo assumenda
+				facere quos quidem voluptatem, odio esse, nisi vero facilis beatae
+				repellat sit deleniti alias cum tempore laboriosam repudiandae id quasi
+				consequatur! Cupiditate molestiae dicta, quo odit ipsa distinctio
+				nostrum saepe unde rerum quas. Praesentium, dolor beatae libero quos
+				earum ipsum velit ullam architecto, dolores aut quis, neque similique
+				qui ipsam! Qui temporibus perferendis, cupiditate laboriosam autem
+				laudantium, at expedita voluptate impedit, praesentium commodi aliquid
+				perspiciatis. Temporibus sequi non laboriosam quae consectetur quaerat
+				vel, distinctio deserunt nostrum velit sunt ea? Eaque optio ducimus,
+				adipisci nostrum repellendus modi dolores. Doloribus, quos soluta
+				cupiditate atque nemo voluptatum aliquid quis, quidem hic in fugit?
+				Earum nesciunt non accusamus corporis recusandae? Alias magnam labore
+				nulla maxime expedita quam eligendi asperiores modi nostrum suscipit,
+				adipisci, totam hic quisquam? Cum culpa tempora animi sed blanditiis hic
+				neque, vero consectetur iure ullam ab voluptatem adipisci similique sit
+				totam esse saepe, nulla omnis. Pariatur numquam velit maiores dicta sit
+				corporis veniam in magni veritatis earum inventore mollitia omnis minus
+				eaque molestiae aliquam, facere distinctio? Quam reiciendis amet qui
+				explicabo asperiores eius impedit soluta officia nihil molestias libero
+				fugiat quas, natus ex aliquam alias similique. Fugit vitae deserunt
+				necessitatibus expedita veniam deleniti dicta maxime placeat magni
+				dolores, quam odit hic. Debitis adipisci error iure assumenda minus
+				labore ducimus repellat dolor tenetur voluptatem sequi, animi odit
+				consequuntur quidem illo itaque odio praesentium quaerat. Dolorem veniam
+				pariatur alias reiciendis quasi! Illum atque ipsa ratione, fugit vel
+				alias. Quasi quam est, tempora quisquam officiis excepturi nesciunt quas
+				architecto facilis inventore ratione reprehenderit doloribus pariatur et
+				obcaecati, natus ad tenetur dolorem repellendus maiores, eius nam.
+				Temporibus laudantium blanditiis suscipit vero ipsum laboriosam, iure
+				enim quibusdam quas non fugiat sapiente ut optio ipsam id. Quae sequi
+				debitis laboriosam quia magni sunt! Sed, beatae. Deleniti corrupti est,
+				accusantium vel aspernatur atque aperiam ullam obcaecati quisquam
+				consequuntur illum reiciendis ipsum quod quam nam minima dignissimos
+				ducimus facilis iure mollitia perspiciatis! Libero fuga dolor
+				consectetur necessitatibus iusto debitis, quaerat maxime saepe iure
+				porro vitae earum odit id.
+			</p>
+		</main>
+	</body>
+</html>
